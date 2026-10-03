@@ -32,6 +32,7 @@ verfeinert. Die hier gesammelten Erkenntnisse sollen anderen die Lernkurve verk�
 ```
 edomi-help-content/
 ├── README.md                  ← diese Datei
+├── CLAUDE.md                  ← Vorlage: generische Verhaltensregeln für Claude Code
 └── edomi-lbs-hilfe/           ← Referenz-Screenshots der Edomi-eigenen LBS-Hilfe
     ├── 00000000_Uebersicht.png
     ├── 12000002_Eingangsbox.png
@@ -64,6 +65,12 @@ in der Logikseiten-Ansicht) und damit, wie sich die LBS-Typ-IDs in Kategorien gl
 | Experimentell | `17...` |
 | Sonstige | `18...` |
 | Eigene Logikbausteine | `19...` |
+
+**Wichtig zur Kategorie `19...`:** Das sind **keine Standard-Edomi-Bausteine**, sondern von
+Usern selbst erstellte Spezialbausteine für ganz konkrete Einzelaufgaben (z. B. "Fertigmeldung
+mit Aktorsteuerung", "Sensor Watchdog"). Begegnet einem beim Migrieren ein `19...`-Baustein, lohnt
+sich ein bewusster Zwischenschritt — siehe dazu den Abschnitt zu Spezialbausteinen in
+[`CLAUDE.md`](CLAUDE.md).
 
 Die Dateien sind nach dem Schema **`<LBS-Typ-ID>_<Name>.png`** benannt — die LBS-Typ-ID ist die
 interne, numerische Edomi-Kennung des Bausteins (z. B. `12000015` für "Ausgangsbox =0"), sichtbar
@@ -113,7 +120,14 @@ Für eine eigene Migration empfiehlt sich dieselbe Aufteilung wie hier:
 ### Projekt-Instruktionsdatei
 
 Claude Code liest beim Start automatisch eine `CLAUDE.md` im Projekt-Root (falls vorhanden) als
-Dauerkontext. Dort hinein gehören die eigenen, stabilen Eckdaten — z. B.:
+Dauerkontext — im Unterschied zu diesem README, das nur gelesen wird, wenn man (oder der
+Assistent) es explizit öffnet. Die generischen, projektübergreifenden Verhaltensregeln (z. B.
+"neue Graphen immer mit `enabled: false` anlegen", Knotenraster, die Engine-Eigenheiten rund um
+`timer_delay`/`compare`/`memory` usw.) liegen deshalb hier im Repo als Vorlage:
+**[`CLAUDE.md`](CLAUDE.md)**.
+
+Im eigenen, privaten Migrations-Repo diese Datei per Verweis einbinden oder die relevanten
+Abschnitte übernehmen, und dort um die eigenen, stabilen Eckdaten ergänzen — z. B.:
 
 - OBS-Instanz-URL, API-Version, wo/wie das Credential zu finden ist
 - bekannte API-Eigenheiten der eigenen OBS-Version (ändert sich zwischen Releases!)
@@ -121,7 +135,7 @@ Dauerkontext. Dort hinein gehören die eigenen, stabilen Eckdaten — z. B.:
 - Hinweis, wo Edomi-Screenshots pro Logikseite abgelegt werden (z. B.
   `edomi-migration/<Seitenname>/`)
 
-Diese Datei ist bewusst *nicht* Teil dieses generischen Repos — sie ist hausspezifisch.
+Diese hausspezifischen Eckdaten gehören **nicht** in dieses generische Repo.
 
 ---
 
